@@ -115,8 +115,33 @@ class RevenuePipeline:
 
     def get_date_range(self, cohort_name: str) -> Tuple[Optional[str], Optional[str]]:
         try:
-            day = int(cohort_name.split('_')[0])
-            start_date = datetime(2025, 6, day)
+            # Parse cohort name like "1_july", "15_july"
+            parts = cohort_name.split('_')
+            if len(parts) != 2:
+                raise ValueError("Cohort name must be in format 'day_month'")
+            day = int(parts[0])
+            month_name = parts[1].lower()
+            # Map month names to numbers
+            month_map = {
+                'january': 1, 'jan': 1,
+                'february': 2, 'feb': 2,
+                'march': 3, 'mar': 3,
+                'april': 4, 'apr': 4,
+                'may': 5,
+                'june': 6, 'jun': 6,
+                'july': 7, 'jul': 7,
+                'august': 8, 'aug': 8,
+                'september': 9, 'sep': 9,
+                'october': 10, 'oct': 10,
+                'november': 11, 'nov': 11,
+                'december': 12, 'dec': 12
+            }
+            if month_name not in month_map:
+                raise ValueError(f"Invalid month name: {month_name}")
+            month = month_map[month_name]
+            # Use current year (2025)
+            current_year = datetime.now().year
+            start_date = datetime(current_year, month, day)
             end_date = start_date + timedelta(days=self.config.window_size - 1)
             self.add_log("INFO", f"Date range for {cohort_name}: {start_date.date()} to {end_date.date()}")
             return start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
