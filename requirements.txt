@@ -1,0 +1,25 @@
+# Core app framework
+streamlit==1.35.0
+
+# Data manipulation
+pandas==2.2.2
+
+# Visualization
+plotly==5.22.0
+
+# Google Cloud BigQuery
+google-cloud-bigquery==3.17.2
+google-auth==2.29.0
+google-auth-oauthlib==1.2.0
+google-api-core==2.18.0
+google-cloud-core==2.4.1
+
+# Excel output support
+openpyxl==3.1.2
+
+# For using credentials from JSON dict (Streamlit secrets)
+google-auth-httplib2==0.2.0
+httplib2==0.22.0
+
+# Requests for currency API calls
+requests==2.32.3
