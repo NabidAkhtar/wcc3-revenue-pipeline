@@ -23,3 +23,4 @@ httplib2==0.22.0
 
 # Requests for currency API calls
 requests==2.32.3
+db_dtypes
